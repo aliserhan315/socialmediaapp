@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@ant-design/cssinjs": "^1.18.0",
@@ -31,6 +32,7 @@
     "svix": "^1.15.0"
   },
   "devDependencies": {
+    "@netlify/plugin-nextjs": "^5.10.7",
     "eslint": "^8",
     "eslint-config-next": "14.0.3",
     "prisma": "^6.7.0"
