@@ -7,18 +7,18 @@ export const metadata = {
 const AuthLayout = ({ children }) => {
   return (
     <div className={css.wrapper}>
-      <sdiv className={css.container}>
+      <div className={css.container}>
         <div className={css.left}>{children}</div>
         <div className={css.right}>
           <Image
-            src="/images/auth.png"
+            src="/images/authh.png"
             alt="branding-image"
             quality={100}
             width={400}
             height={480}
           />
         </div>
-      </sdiv>
+      </div>
     </div>
   );
 };

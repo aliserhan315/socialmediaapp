@@ -18,15 +18,18 @@ const Header = () => {
           </div>
 
           {/* logo */}
-          <Image
-            src="/images/logo.png"
-            width={150}
-            height={40}
-            alt="logo"
-            className={css.logo}
-          />
+          <div className="flex items-center space-x-2">
+            <Image
+              src="/images/logo.png"
+              width={150}
+              height={40}
+              alt="logo"
+              className={css.logo}
+            />
+          </div>
+
           {/* actions */}
-          <Flex gap={25} align="center"> 
+          <Flex gap={25} align="center">
             <ModeButton />
             <UserButton afterSignOutUrl="/sign-in" />
           </Flex>
