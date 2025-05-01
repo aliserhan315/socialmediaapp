@@ -57,6 +57,8 @@ model User {
     blocksSent     Block[]   @relation("BlocksSent")
     blocksReceived Block[]   @relation("BlocksReceived")
     story          Story?
+    sentMessages     Message[] @relation("SentMessages")
+    receivedMessages Message[] @relation("ReceivedMessages")
 }
 
 model Trend {
@@ -96,3 +98,13 @@ model Story {
   userId    String   @unique
 }
 
+model Message {
+  id        String   @id @default(cuid())
+  senderId  String
+  receiverId String
+  content   String
+  createdAt DateTime @default(now())
+
+  sender   User @relation("SentMessages", fields: [senderId], references: [id])
+  receiver User @relation("ReceivedMessages", fields: [receiverId], references: [id])
+}

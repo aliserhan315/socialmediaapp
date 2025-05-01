@@ -1,7 +1,7 @@
 import { auth } from "@clerk/nextjs/server";
 import { db } from "../lib/db";
 
-export const addStory = async (img: string) => {
+export const addStory = async (img) => {
   const { userId } = auth();
 
   if (!userId) {
@@ -27,7 +27,7 @@ export const addStory = async (img: string) => {
       data: {
         userId,
         img,
-        expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours from now
+        expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
       },
       include: {
         user: true,

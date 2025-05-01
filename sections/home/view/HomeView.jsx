@@ -5,15 +5,18 @@ import Posts from "@/components/Post/Posts";
 import PopularTrends from "@/components/PopularTrends";
 import FriendsSuggestion from "@/components/FriendsSuggestion";
 import { Space, Spin, Typography } from "antd";
+import Stories from "@/components/Stories";
 const HomeView = () => {
   return (
     <div className={css.wrapper}>
       <div className={css.postsArea}>
-        {/* post generator on top */}
-        <PostGenerator />
-
-        {/* posts */}
-        <Posts />
+     
+        <div className="flex flex-col gap-6">
+          <Stories />
+          <PostGenerator />
+          <Posts />
+           </div>
+    
       </div>
 
       <div className={css.rightSide}>
