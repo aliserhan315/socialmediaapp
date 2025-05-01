@@ -12,7 +12,7 @@ const HomeView = () => {
       <div className={css.postsArea}>
      
         <div className="flex flex-col gap-6">
-          <Stories />
+    
           <PostGenerator />
           <Posts />
            </div>
