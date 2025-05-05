@@ -1,4 +1,4 @@
-import db from "../lib/db"
+import { db } from "../lib/db";
 import { auth } from "@clerk/nextjs/server";
 import StoryList from "./StoryList";
 
@@ -7,7 +7,7 @@ const Stories = async () => {
 
   if (!currentUserId) return null;
 
-  const stories = await prisma.story.findMany({
+  const stories = await db.story.findMany({
     where: {
       expiresAt: {
         gt: new Date(),
@@ -31,6 +31,8 @@ const Stories = async () => {
       user: true,
     },
   });
+
+  //if (!stories.length) return <p>No stories to show.</p>;
 
   return (
     <div className="p-4 bg-white rounded-lg shadow-md overflow-scroll text-xs scrollbar-hide">

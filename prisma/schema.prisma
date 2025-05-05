@@ -1,90 +1,89 @@
-datasource db {
-    provider = "postgresql"
-    url      = env("DATABASE_URL")
-    directUrl = env("DIRECT_URL")
+generator client {
+  provider = "prisma-client-js"
 }
 
-generator client {
-    provider = "prisma-client-js"
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model Post {
-    id        Int       @id @default(autoincrement())
-    postText  String?
-    media     String?
-    author    User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
-    authorId  String
-    cld_id    String?
-    createdAt DateTime  @default(now())
-    likes     Like[]
-    comments  Comment[]
-    trends    Trend[]
+  id        Int       @id @default(autoincrement())
+  authorId  String
+  media     String?
+  postText  String?
+  cld_id    String?
+  createdAt DateTime  @default(now())
+  comments  Comment[]
+  likes     Like[]
+  author    User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  trends    Trend[]
 }
 
 model Like {
-    id        Int      @id @default(autoincrement())
-    post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
-    postId    Int
-    author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
-    authorId  String
-    createdAt DateTime @default(now())
+  id        Int      @id @default(autoincrement())
+  postId    Int
+  authorId  String
+  createdAt DateTime @default(now())
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
 }
 
 model Comment {
-    id        Int      @id @default(autoincrement())
-    comment   String?
-    author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
-    authorId  String
-    post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
-    postId    Int
-    createdAt DateTime @default(now())
+  id        Int      @id @default(autoincrement())
+  comment   String?
+  authorId  String
+  postId    Int
+  createdAt DateTime @default(now())
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
 }
 
 model User {
-    id            String    @id
-    email_address String?   @unique
-    first_name    String?
-    last_name     String?
-    image_url     String?
-    banner_url    String?
-    banner_id     String?
-    username      String?   @unique
-    posts         Post[]
-    likes         Like[]
-    comments      Comment[]
-    followers     Follow[]  @relation("Following")
-    following     Follow[]  @relation("Follower")
-    blocksSent     Block[]   @relation("BlocksSent")
-    blocksReceived Block[]   @relation("BlocksReceived")
-    story          Story?
-    sentMessages     Message[] @relation("SentMessages")
-    receivedMessages Message[] @relation("ReceivedMessages")
+  id               String    @id
+  email_address    String?   @unique
+  first_name       String?
+  image_url        String?
+  last_name        String?
+  username         String?   @unique
+  banner_url       String?
+  banner_id        String?
+  blocksReceived   Block[]   @relation("BlocksReceived")
+  blocksSent       Block[]   @relation("BlocksSent")
+  comments         Comment[]
+  following        Follow[]  @relation("Follower")
+  followers        Follow[]  @relation("Following")
+  likes            Like[]
+  receivedMessages Message[] @relation("ReceivedMessages")
+  sentMessages     Message[] @relation("SentMessages")
+  posts            Post[]
+  story            Story?
 }
 
 model Trend {
-    id     Int    @id @default(autoincrement())
-    name   String
-    post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
-    postId Int
+  name   String
+  postId Int
+  id     Int    @id @default(autoincrement())
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
 }
 
 model Follow {
-    id          Int      @id @default(autoincrement())
-    follower    User     @relation("Follower", fields: [followerId], references: [id], onDelete: Cascade)
-    followerId  String
-    following   User     @relation("Following", fields: [followingId], references: [id], onDelete: Cascade)
-    followingId String
-    createdAt   DateTime @default(now())
+  id          Int      @id @default(autoincrement())
+  followerId  String
+  followingId String
+  createdAt   DateTime @default(now())
+  follower    User     @relation("Follower", fields: [followerId], references: [id], onDelete: Cascade)
+  following   User     @relation("Following", fields: [followingId], references: [id], onDelete: Cascade)
 }
-
 
 model Block {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
-  blocker   User     @relation("BlocksSent", fields: [blockerId], references: [id], onDelete: Cascade)
   blockerId String
-  blocked   User     @relation("BlocksReceived", fields: [blockedId], references: [id], onDelete: Cascade)
   blockedId String
+  blocked   User     @relation("BlocksReceived", fields: [blockedId], references: [id], onDelete: Cascade)
+  blocker   User     @relation("BlocksSent", fields: [blockerId], references: [id], onDelete: Cascade)
 
   @@unique([blockerId, blockedId])
 }
@@ -94,17 +93,16 @@ model Story {
   createdAt DateTime @default(now())
   expiresAt DateTime
   img       String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Message {
-  id        String   @id @default(cuid())
-  senderId  String
+  id         String   @id @default(cuid())
+  senderId   String
   receiverId String
-  content   String
-  createdAt DateTime @default(now())
-
-  sender   User @relation("SentMessages", fields: [senderId], references: [id])
-  receiver User @relation("ReceivedMessages", fields: [receiverId], references: [id])
+  content    String
+  createdAt  DateTime @default(now())
+  receiver   User     @relation("ReceivedMessages", fields: [receiverId], references: [id])
+  sender     User     @relation("SentMessages", fields: [senderId], references: [id])
 }

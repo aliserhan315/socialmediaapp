@@ -10,7 +10,7 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
-    "@ant-design/cssinjs": "^1.18.0",
+    "@ant-design/cssinjs": "^1.23.0",
     "@ant-design/happy-work-theme": "^1.0.0",
     "@clerk/nextjs": "^4.27.2",
     "@formkit/auto-animate": "^0.8.1",
