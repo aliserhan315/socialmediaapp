@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Modal, Avatar, Typography } from "antd";
+import Image from "next/image";
 
 const StoriesWrapper = ({ stories, currentUserId }) => {
   const [openUser, setOpenUser] = useState(null);
@@ -52,11 +53,12 @@ const StoriesWrapper = ({ stories, currentUserId }) => {
                 key={story.id}
                 className="flex justify-center items-center"
               >
-                <img
-                  src={story.img}
+                <Image src={story.img}
                   alt="Story"
-                  className="max-w-full max-h-[60vh] rounded"
-                />
+                  width={300}
+                  height={300}
+                  className="max-w-full max-h-[20] rounded"/>
+               
               </div>
             ))}
           </div>
