@@ -6,8 +6,6 @@ import PopularTrends from "@/components/PopularTrends";
 import FriendsSuggestion from "@/components/FriendsSuggestion";
 import { Space, Spin, Typography } from "antd";
 import Stories from "@/components/Stories";
-import StoryList from "@/components/StoryList";
-import ImageUploader from "@/components/ImageUploader";
 
 const HomeView = () => {
   return (

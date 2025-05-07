@@ -58,7 +58,7 @@ model User {
   receivedMessages Message[] @relation("ReceivedMessages")
   sentMessages     Message[] @relation("SentMessages")
   posts            Post[]
-  story            Story?
+  stories          Story[] 
 }
 
 model Trend {
@@ -87,15 +87,18 @@ model Block {
 
   @@unique([blockerId, blockedId])
 }
-
 model Story {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   expiresAt DateTime
   img       String
-  userId    String   @unique
+  userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId]) // Optional but recommended for performance
 }
+
+
 
 model Message {
   id         String   @id @default(cuid())

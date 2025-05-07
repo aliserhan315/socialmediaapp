@@ -24,6 +24,15 @@ body {
     #0070f3 51.14%
   );
 }
+/* globals.css */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 
 .cl-logoImage {
   width: 9rem;

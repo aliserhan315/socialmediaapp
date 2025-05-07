@@ -1,10 +1,9 @@
 import { db } from "../lib/db";
 import { auth } from "@clerk/nextjs/server";
-import StoryList from "./StoryList";
+import StoriesWrapper from "./StoriesWrapper";
 
 const Stories = async () => {
   const { userId: currentUserId } = auth();
-
   if (!currentUserId) return null;
 
   const stories = await db.story.findMany({
@@ -32,15 +31,7 @@ const Stories = async () => {
     },
   });
 
-  //if (!stories.length) return <p>No stories to show.</p>;
-
-  return (
-    <div className="p-4 bg-white rounded-lg shadow-md overflow-scroll text-xs scrollbar-hide">
-      <div className="flex gap-8 w-max">
-        <StoryList stories={stories} userId={currentUserId} />
-      </div>
-    </div>
-  );
+  return <StoriesWrapper stories={stories} currentUserId={currentUserId} />;
 };
 
 export default Stories;
