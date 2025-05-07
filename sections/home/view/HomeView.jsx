@@ -6,13 +6,15 @@ import PopularTrends from "@/components/PopularTrends";
 import FriendsSuggestion from "@/components/FriendsSuggestion";
 import { Space, Spin, Typography } from "antd";
 import Stories from "@/components/Stories";
+import AddStory from "@/components/AddStory";
 
 const HomeView = () => {
   return (
     <div className={css.wrapper}>
       <div className={css.postsArea}>
-        <div className="flex flex-col gap-6">
+        <div className="flex gap-6">
           <Stories />
+          <AddStory/>
         </div>
         <div className="flex flex-col gap-6">
           <PostGenerator />
