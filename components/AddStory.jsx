@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useUser } from "@clerk/nextjs";
 import { addStory } from "@/actions/addStory";
 import ImageUploader from "./ImageUploader";
+import Image from "next/image";
 
 const AddStory = ({ userId, onStoryAdded }) => {
   const [img, setImg] = useState(null);
@@ -40,7 +41,7 @@ const AddStory = ({ userId, onStoryAdded }) => {
       <ImageUploader onUpload={handleImageUpload} user={user}>
         {img ? (
           <div className="flex flex-col items-center gap-2">
-            <img
+            <Image
               src={img.secure_url}
               alt="Preview"
               className="w-32 h-32 object-cover rounded-md"
