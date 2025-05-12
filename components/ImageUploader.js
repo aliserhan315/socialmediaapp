@@ -8,7 +8,6 @@ import toast from "react-hot-toast";
 import css from "@/styles/PostGenerator.module.css"; // reuse PostGenerator styles
 import Box from "@/components/Box";
 import { createStory } from "@/actions/createStory";
-import { prisma } from "../lib/db";
 import { db } from "@/lib/db";
 
 const StoryUploader = () => {

@@ -28,7 +28,7 @@ export const addStory = async (img) => {
     console.log("Story created:", createdStory);
     return createdStory;
   } catch (err) {
-    console.error("Failed to add story:", err);
+    console.error("Failed to add story:", err.message, err.stack);
     throw new Error("Failed to add story");
   }
 };
