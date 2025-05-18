@@ -13,6 +13,7 @@ const nextConfig = {
   },
   images: {
     domains: ["res.cloudinary.com"],
+    domains: ['img.clerk.com'],
   },
  
 };
