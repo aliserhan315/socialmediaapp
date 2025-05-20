@@ -12,10 +12,8 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    domains: ["res.cloudinary.com"],
-    domains: ['img.clerk.com'],
+    domains: ["res.cloudinary.com", "img.clerk.com"],
   },
- 
 };
 
 module.exports = nextConfig;

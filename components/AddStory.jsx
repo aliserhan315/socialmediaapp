@@ -1,16 +1,22 @@
 "use client";
-
+import Link from "next/link";
 import { useState } from "react";
 import { useUser } from "@clerk/nextjs";
 import { addStory } from "@/actions/addStory";
 import ImageUploader from "./ImageUploader";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import cx from "classnames";
+import css from "@/styles/Sidebar.module.css";
+import Iconify from "./Iconify";
+import Typography from "antd/es/typography/Typography";
 
 const AddStory = ({ userId, onStoryAdded }) => {
   const [img, setImg] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const { user } = useUser();
+  const router = useRouter();
 
   const handleImageUpload = (uploadedImg) => {
     setImg(uploadedImg);
@@ -60,6 +66,19 @@ const AddStory = ({ userId, onStoryAdded }) => {
           </span>
         )}
       </ImageUploader>
+
+      <Link
+        href="/stories"
+        className={cx(css.item, "flex items-center gap-2 mt-2")}
+      >
+        {/* icon (optional) */}
+        <Typography>
+          <Iconify icon="solar:story-bold" width="20px" />
+        </Typography>
+
+        {/* text */}
+        <Typography className="typoSubtitle2">View Stories</Typography>
+      </Link>
     </div>
   );
 };

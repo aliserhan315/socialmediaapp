@@ -12,9 +12,8 @@ const HomeView = () => {
   return (
     <div className={css.wrapper}>
       <div className={css.postsArea}>
-        <div className="flex gap-6">
-          <Stories />
-          <AddStory/>
+        <div className="w-full overflow-x-aut">
+          <AddStory />
         </div>
         <div className="flex flex-col gap-6">
           <PostGenerator />

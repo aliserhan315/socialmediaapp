@@ -11,9 +11,7 @@ import {
   QueryClient,
   dehydrate,
 } from "@tanstack/react-query";
-import {
-  getAllFollowersAndFollowings,
-} from "@/actions/user";
+import { getAllFollowersAndFollowings } from "@/actions/user";
 import { currentUser } from "@clerk/nextjs";
 const HomeLayout = async ({ children }) => {
   const queryClient = new QueryClient();
@@ -27,7 +25,6 @@ const HomeLayout = async ({ children }) => {
     // 20 mins stale time
     staleTime: 1000 * 60 * 20,
   });
-
 
   return (
     <SettingsContextProvider>

@@ -1,10 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import { Modal, Avatar, Typography } from "antd";
+import { Modal, Button, Flex, Avatar, Typography } from "antd";
 import Image from "next/image";
+import Link from "next/link";
+import Iconify from "./Iconify";
+import { useRouter } from "next/navigation";
+import Box from "./Box";
+import css from "@/styles/PostGenerator.module.css";
 
 const StoriesWrapper = ({ stories, currentUserId }) => {
+  const router = useRouter();
+
   const [openUser, setOpenUser] = useState(null);
 
   const storiesByUser = stories.reduce((acc, story) => {
@@ -19,52 +26,73 @@ const StoriesWrapper = ({ stories, currentUserId }) => {
   const userList = Object.values(storiesByUser);
 
   return (
-    <div className="p-4 bg-white rounded-lg shadow-md overflow-x-auto scrollbar-hide">
-      {/* Horizontal user list */}
-      <div className="flex gap-4 overflow-x-auto w-full scrollbar-hide">
-  {userList.map(({ user, stories }) => (
-    <div
-      key={user.id}
-      className="flex flex-col items-center cursor-pointer w-20 shrink-0"
-      onClick={() => setOpenUser({ user, stories })}
-    >
-      <Avatar size={64} src={user.image_url} alt={user.username} />
-      <Typography.Text className="mt-1 text-xs truncate text-center w-full">
-        {user.username}
-      </Typography.Text>
-    </div>
-  ))}
-</div>
+    <Box className={css.container}>
+      <div className="min-h-screen bg-white p-4 text-black">
+        {/*  <Button type="primary" className="mb-8" onClick={() => router.back()}>
+        <Flex align="center" gap={".5rem"}>
+          <Iconify icon="iconamoon:send-fill" width="1.2rem" />
+          <Typography
+            className="typoSubtitle2 flex py-4"
+            style={{ color: "white" }}
+          >
+            Back
+          </Typography>
+        </Flex>
+      </Button> */}
 
-
-      {/* Modal with vertical stories */}
-      <Modal
-        open={!!openUser}
-        title={`${openUser?.user.username}'s Stories`}
-        footer={null}
-        onCancel={() => setOpenUser(null)}
-        centered
-        width={400}
-      >
-        {openUser && (
-          <div className="flex flex-col gap-4 max-h-[70vh] overflow-y-auto">
-            {openUser.stories.map((story) => (
+        {/* Horizontal user list */}
+        <div className="mt-10 overflow-x-auto">
+          <div className="flex gap-10 px-6 py-2">
+            {userList.map(({ user, stories }) => (
               <div
-                key={story.id}
-                className="flex justify-center items-center"
+                key={user.id}
+                onClick={() => setOpenUser({ user, stories })}
+                className="flex-shrink-0 w-fit flex flex-col items-center text-center cursor-pointer"
               >
-                <Image src={story.img}
-                  alt="Story"
-                  width={300}
-                  height={300}
-                  className="max-w-full max-h-[20] rounded"/>
-               
+                <div className="py-2 ">
+                  <Avatar size={64} src={user.image_url} alt={user.username} />
+                </div>
+
+                <div>
+                  <Typography.Text className="mt-1 text-sm truncate max-w-[64px]">
+                    {user.username}
+                  </Typography.Text>
+                </div>
               </div>
             ))}
           </div>
-        )}
-      </Modal>
-    </div>
+        </div>
+
+        {/* Modal with vertical stories */}
+        <Modal
+          open={!!openUser}
+          title={`${openUser?.user.username}'s Stories`}
+          footer={null}
+          onCancel={() => setOpenUser(null)}
+          centered
+          width={400}
+        >
+          {openUser && (
+            <div className="flex flex-row gap-4 max-w-full overflow-x-auto">
+              {openUser.stories.map((story) => (
+                <div
+                  key={story.id}
+                  className="flex justify-center items-center"
+                >
+                  <Image
+                    src={story.img}
+                    alt="Story"
+                    width={300}
+                    height={300}
+                    className="max-w-full max-h-[600px] rounded"
+                  />
+                </div>
+              ))}
+            </div>
+          )}
+        </Modal>
+      </div>
+    </Box>
   );
 };
 
