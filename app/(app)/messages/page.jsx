@@ -56,20 +56,26 @@ export default function MessagesPage() {
   return (
     <div className="p-4">
       <Box className={css.container}>
-        <h1 className="text-xl font-bold mb-14 bg-blue-600 p-4 rounded-t-lg bg-primary" style={{ color: "#0070f3" }}>
+        <h1
+          className="text-xl font-bold mb-14 bg-blue-600 p-4 rounded-t-lg bg-primary"
+          style={{ color: "#0070f3" }}
+        >
           Messages
         </h1>
       </Box>
-
-      <div className="flex justify-center mb-8">
-      <SearchBox
-      placeholder="Search by name"
-      onChangeHandler={(e) => setSearch(e.target.value)}
-      />
-
+      <div>
+        <br />
       </div>
+      <Box className={css.container}>
+        <div className=" flex justify-center mb-8">
+          <SearchBox
+            placeholder="Search by name"
+            onChangeHandler={(e) => setSearch(e.target.value)}
+          />
+        </div>
 
-      <CardList listcomponent={filteredUsers} />
+        <CardList listcomponent={filteredUsers} />
+      </Box>
     </div>
   );
 }

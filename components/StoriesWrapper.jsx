@@ -49,15 +49,21 @@ const StoriesWrapper = ({ stories, currentUserId }) => {
                 onClick={() => setOpenUser({ user, stories })}
                 className="flex-shrink-0 w-fit flex flex-col items-center text-center cursor-pointer"
               >
-                <div className="py-2 ">
-                  <Avatar size={64} src={user.image_url} alt={user.username} />
-                </div>
+                <Box className={css.container}>
+                  <div className="py-2 ">
+                    <Avatar
+                      size={64}
+                      src={user.image_url}
+                      alt={user.username}
+                    />
+                  </div>
 
-                <div>
-                  <Typography.Text className="mt-1 text-sm truncate max-w-[64px]">
-                    {user.username}
-                  </Typography.Text>
-                </div>
+                  <div>
+                    <Typography.Text className="mt-1 text-sm truncate max-w-[64px]">
+                      {user.username}
+                    </Typography.Text>
+                  </div>
+                </Box>
               </div>
             ))}
           </div>

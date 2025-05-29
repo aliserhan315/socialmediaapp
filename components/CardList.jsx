@@ -1,6 +1,6 @@
 // CardList.jsx
-import './card.list.container.css';
-import Card from './Card';
+import "./card.list.container.css";
+import Card from "./Card";
 
 const CardList = ({ listcomponent }) => (
   <div className="card-list">
