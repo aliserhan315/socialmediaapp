@@ -33,7 +33,6 @@ body {
   scrollbar-width: none;
 }
 
-
 .cl-logoImage {
   width: 9rem;
   height: 3rem;
@@ -61,4 +60,8 @@ body {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(152, 152, 152, 0.804);
+}
+
+h2 {
+  color: rgb(42, 41, 41);
 }
