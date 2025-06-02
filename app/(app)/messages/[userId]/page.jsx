@@ -16,6 +16,7 @@ export default function ChatPage() {
   const [content, setContent] = useState("");
   const [otherUser, setOtherUser] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [lastSentTime, setLastSentTime] = useState(Date.now());
 
   // Load messages and user info once
   useEffect(() => {
@@ -48,9 +49,9 @@ export default function ChatPage() {
         content,
       });
       setContent("");
+      setLastSentTime(Date.now()); // Update last sent time
       // Refresh messages after sending
       const chatHistory = await getMessagesWithUser(otherUserId);
-      console.log("Fetched chatHistory after send:", chatHistory); // Debug line
       setMessages(chatHistory);
     } catch (err) {
       console.error("Failed to send:", err);
@@ -58,6 +59,23 @@ export default function ChatPage() {
       setLoading(false);
     }
   };
+
+  // Poll for new messages if no message sent for 8 seconds
+  useEffect(() => {
+    if (!otherUserId) return;
+    const interval = setInterval(async () => {
+      if (Date.now() - lastSentTime >= 8000) {
+        try {
+          const chatHistory = await getMessagesWithUser(otherUserId);
+          setMessages(chatHistory);
+        } catch (err) {
+          console.error("Error fetching messages:", err);
+        }
+      }
+    }, 2000); // Check every 2 seconds
+
+    return () => clearInterval(interval);
+  }, [otherUserId, lastSentTime]);
 
   return (
     <div style={{ maxWidth: 480, margin: "40px auto", borderRadius: 18, boxShadow: "0 4px 24px #0002", background: "#fff", display: "flex", flexDirection: "column", height: "80vh", overflow: "hidden" }}>
