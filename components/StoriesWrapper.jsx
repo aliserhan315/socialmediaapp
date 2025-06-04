@@ -1,17 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { Modal, Button, Flex, Avatar, Typography } from "antd";
+import { Modal, Avatar, Typography } from "antd";
 import Image from "next/image";
-import Link from "next/link";
-import Iconify from "./Iconify";
-import { useRouter } from "next/navigation";
+import AddStoryWview from "./AddStoryWview";
 import Box from "./Box";
 import css from "@/styles/PostGenerator.module.css";
 
 const StoriesWrapper = ({ stories, currentUserId }) => {
-  const router = useRouter();
-
   const [openUser, setOpenUser] = useState(null);
 
   const storiesByUser = stories.reduce((acc, story) => {
@@ -26,79 +22,69 @@ const StoriesWrapper = ({ stories, currentUserId }) => {
   const userList = Object.values(storiesByUser);
 
   return (
-    <Box className={css.container}>
-      <div className="min-h-screen bg-white p-4 text-black">
-        {/*  <Button type="primary" className="mb-8" onClick={() => router.back()}>
-        <Flex align="center" gap={".5rem"}>
-          <Iconify icon="iconamoon:send-fill" width="1.2rem" />
-          <Typography
-            className="typoSubtitle2 flex py-4"
-            style={{ color: "white" }}
-          >
-            Back
-          </Typography>
-        </Flex>
-      </Button> */}
+    <div style={{ height: "100vh", overflowY: "auto", background: "white" }}>
+      <div className="w-full overflow-x-auto px-4">
+        <AddStoryWview />
+      </div>
 
-        {/* Horizontal user list */}
-        <div className="mt-10 overflow-x-auto">
-          <div className="flex gap-10 px-6 py-2">
-            {userList.map(({ user, stories }) => (
+      <div className="mt-10 w-full">
+        <div
+          style={{
+            height: "300px",
+            overflowX: "auto",
+            background: "#eee",
+            display: "flex",
+            gap: "1rem",
+            padding: "0.5rem 1rem",
+            minWidth: "max-content",
+          }}
+        >
+          {userList.map(({ user, stories }) => (
+            <Box key={user.id} className={css.container}>
               <div
-                key={user.id}
                 onClick={() => setOpenUser({ user, stories })}
-                className="flex-shrink-0 w-fit flex flex-col items-center text-center cursor-pointer"
+                className="flex flex-col items-center text-center cursor-pointer flex-shrink-0 w-[80px]"
               >
-                <Box className={css.container}>
-                  <div className="py-2 ">
-                    <Avatar
-                      size={64}
-                      src={user.image_url}
-                      alt={user.username}
-                    />
-                  </div>
-
-                  <div>
-                    <Typography.Text className="mt-1 text-sm truncate max-w-[64px]">
-                      {user.username}
-                    </Typography.Text>
-                  </div>
+                <Box key={user.id} className={css.container}>
+                  <Avatar size={64} src={user.image_url} alt={user.username} />
                 </Box>
+                <Box key={user.id} className={css.container}>
+                  {" "}
+                  <Typography.Text className="mt-1 text-xs truncate w-full">
+                    {user.username}
+                  </Typography.Text>
+                </Box>
+              </div>
+            </Box>
+          ))}
+        </div>
+      </div>
+
+      <Modal
+        open={!!openUser}
+        title={`${openUser?.user.username}'s Stories`}
+        footer={null}
+        onCancel={() => setOpenUser(null)}
+        centered
+        width={400}
+      >
+        {openUser && (
+          <div className="flex flex-row gap-4 max-w-full overflow-x-auto">
+            {openUser.stories.map((story) => (
+              <div key={story.id} className="flex justify-center items-center">
+                <Image
+                  src={story.img}
+                  alt="Story"
+                  width={300}
+                  height={300}
+                  className="max-w-full max-h-[600px] rounded"
+                />
               </div>
             ))}
           </div>
-        </div>
-
-        {/* Modal with vertical stories */}
-        <Modal
-          open={!!openUser}
-          title={`${openUser?.user.username}'s Stories`}
-          footer={null}
-          onCancel={() => setOpenUser(null)}
-          centered
-          width={400}
-        >
-          {openUser && (
-            <div className="flex flex-row gap-4 max-w-full overflow-x-auto">
-              {openUser.stories.map((story) => (
-                <div
-                  key={story.id}
-                  className="flex justify-center items-center"
-                >
-                  <Image
-                    src={story.img}
-                    alt="Story"
-                    width={300}
-                    height={300}
-                    className="max-w-full max-h-[600px] rounded"
-                  />
-                </div>
-              ))}
-            </div>
-          )}
-        </Modal>
-      </div>
-    </Box>
+        )}
+      </Modal>
+    </div>
   );
 };
 
