@@ -5,7 +5,7 @@ export const uploadFile = async (file, folder) => {
   try {
     // Upload image to Cloudinary (Promise-based version)
     const res = await cld.v2.uploader.upload(file, {
-      folder: `socialhop/${folder}`,
+      folder: `Tether/${folder}`,
       resource_type: "auto",
     });
     console.log("File uploaded successfully:", res);

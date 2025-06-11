@@ -5,7 +5,7 @@ import { QueryClient } from "@tanstack/react-query";
 
 export const metadata = () => {
   return {
-    title: `Socialhop`,
+    title: `Tether`,
     description: `New way to feel freedom`,
   };
 };
