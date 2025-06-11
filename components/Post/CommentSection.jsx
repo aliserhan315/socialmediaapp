@@ -44,7 +44,7 @@ const CommentSection = ({ comments, postId, queryId }) => {
           <Button type="text" onClick={() => setExpanded((prev) => !prev)}>
             <Flex align="center" gap={".5rem"} justify="center">
               <Iconify icon={EXPAND_ICONS[expanded]} />
-              Show more comments
+            {expanded ? "Show less comments" : "Show more comments"}
             </Flex>
           </Button>
         )}
