@@ -85,7 +85,7 @@ export default function ChatPage() {
           <Image src={otherUser.image_url} alt="User avatar" width={52} height={52} style={{ borderRadius: "50%", objectFit: "cover", border: "2px solid #1677ff", marginRight: 16 }} />
         )}
         <span style={{ fontWeight: 700, fontSize: 22, color: "#222" }}>
-         { `${otherUser?.first_name} ${otherUser?.last_name}` ||   `${otherUser?.username || "Chat"}`}
+         {otherUser?.username || "Chat"}
         </span>
       </Box>
 
