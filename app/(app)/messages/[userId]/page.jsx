@@ -94,7 +94,7 @@ export default function ChatPage() {
         {messages.map((msg, idx) => {
           const isUser = msg.senderId === user?.id;
           const avatar = isUser ? user?.imageUrl : otherUser?.image_url;
-          const name = isUser ? `${user?.firstName} ${user?.lastName}` : `${otherUser?.first_name} ${otherUser?.last_name}`;
+          const name = isUser ? `${user?.username} ` : `${otherUser?.username} ${otherUser?.last_name}`;
           return (
             <div key={msg.id || idx} style={{ display: "flex", flexDirection: isUser ? "row-reverse" : "row", alignItems: "flex-end", gap: 10 }}>
               <Image src={avatar || "/default-avatar.png"} alt="Chat avatar" width={36} height={36} style={{ borderRadius: "50%", objectFit: "cover", border: isUser ? "2px solid #1677ff" : "2px solid #eaeaea" }} />
